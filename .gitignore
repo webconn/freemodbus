@@ -1,0 +1,16 @@
+*#*
+.#*
+#*
+*~
+*.old
+*.backup
+*.o
+.config
+*.kate-swp
+profiles/*
+*.orig
+tmp/
+*.swp
+.*.swp
+tags
+
