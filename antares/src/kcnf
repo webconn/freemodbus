@@ -1,0 +1,81 @@
+menuconfig LIB_FREEMODBUS
+        bool "freemodbus library"
+        depends on ARCH_AVR
+
+if LIB_FREEMODBUS
+
+        config LIB_FREEMODBUS_USE_RTU
+                bool
+
+        choice
+                prompt "Modbus implementation"
+             
+                config LIB_FREEMODBUS_RTU
+                        bool "RTU"
+                        select LIB_FREEMODBUS_USE_RTU
+
+                config LIB_FREEMODBUS_ASCII
+                        bool "ASCII/RTU"
+                        select LIB_FREEMODBUS_USE_RTU
+                        
+
+                config LIB_FREEMODBUS_TCP
+                        bool "TCP"
+                        depends on ARCH_HAS_LWIP # todo: change this dummy
+        endchoice
+
+        if ARCH_AVR
+                source antares/src/lib/contrib/freemodbus/ports/avr.kcnf
+        endif
+
+        config LIB_FREEMODBUS_ASCII_TIMEOUT
+                int "Modbus ASCII character timeout (seconds)"
+                depends on LIB_FREEMODBUS_ASCII
+
+        config LIB_FREEMODBUS_ASCII_TIMEOUT_WAIT
+                int "Modbus ASCII timeout to transmit (ms)"
+                depends on LIB_FREEMODBUS_ASCII
+
+        config LIB_FREEMODBUS_FUNC_HANDLERS_MAX
+                int "Maximum number of Modbus functions"
+                default 16
+
+        config LIB_FREEMODBUS_SLAVEID_BUF
+                int "Size of SlaveID buffer"
+                default 32
+
+        menu "Modbus functions"
+
+                config LIB_FREEMODBUS_FUNC_SLAVEID
+                        bool "Report Slave ID (43.14)"
+
+                config LIB_FREEMODBUS_FUNC_READ_INPUT
+                        bool "Read Input register (4)"
+
+                config LIB_FREEMODBUS_FUNC_READ_HOLDING
+                        bool "Read Holding registers (3)"
+
+                config LIB_FREEMODBUS_FUNC_WRITE_HOLDING
+                        bool "Write Single register (6)"
+
+                config LIB_FREEMODBUS_FUNC_WRITE_MULTI_HOLDING
+                        bool "Write Multiple registers (16)"
+
+                config LIB_FREEMODBUS_FUNC_READ_COILS
+                        bool "Read Coils (1)"
+
+                config LIB_FREEMODBUS_FUNC_WRITE_COIL
+                        bool "Write Coils (5)"
+
+                config LIB_FREEMODBUS_FUNC_WRITE_MULTI_COILS
+                        bool "Write Multiple Coils (15)"
+
+                config LIB_FREEMODBUS_FUNC_READ_DISCRETE
+                        bool "Read Discrete Inputs (2)"
+
+                config LIB_FREEMODBUS_FUNC_READWRITE_HOLDING"
+                        bool "Read/Write Multiple Registers (23)"
+
+        endmenu
+
+endif
