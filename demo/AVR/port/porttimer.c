@@ -22,7 +22,6 @@
 /* ----------------------- AVR includes -------------------------------------*/
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <avr/signal.h>
 
 /* ----------------------- Platform includes --------------------------------*/
 #include "port.h"
@@ -48,9 +47,9 @@ xMBPortTimersInit( USHORT usTim1Timerout50us )
     usTimerOCRADelta =
         ( MB_TIMER_TICKS * usTim1Timerout50us ) / ( MB_50US_TICKS );
 
-    TCCR1A = 0x00;
-    TCCR1B = 0x00;
-    TCCR1C = 0x00;
+    _MB_TCCR1A = 0x00;
+    _MB_TCCR1B = 0x00;
+    _MB_TCCR1C = 0x00;
 
     vMBPortTimersDisable(  );
 
@@ -61,28 +60,28 @@ xMBPortTimersInit( USHORT usTim1Timerout50us )
 inline void
 vMBPortTimersEnable(  )
 {
-    TCNT1 = 0x0000;
+    _MB_TCNT1 = 0x0000;
     if( usTimerOCRADelta > 0 )
     {
-        TIMSK1 |= _BV( OCIE1A );
-        OCR1A = usTimerOCRADelta;
+        _MB_TIMSK1 |= _BV( _MB_OCIE1A );
+        _MB_OCR1A = usTimerOCRADelta;
     }
 
-    TCCR1B |= _BV( CS12 ) | _BV( CS10 );
+    _MB_TCCR1B |= _BV( _MB_CS12 ) | _BV( _MB_CS10 );
 }
 
 inline void
 vMBPortTimersDisable(  )
 {
     /* Disable the timer. */
-    TCCR1B &= ~( _BV( CS12 ) | _BV( CS10 ) );
+    _MB_TCCR1B &= ~( _BV( _MB_CS12 ) | _BV( _MB_CS10 ) );
     /* Disable the output compare interrupts for channel A/B. */
-    TIMSK1 &= ~( _BV( OCIE1A ) );
+    _MB_TIMSK1 &= ~( _BV( _MB_OCIE1A ) );
     /* Clear output compare flags for channel A/B. */
-    TIFR1 |= _BV( OCF1A ) ;
+    _MB_TIFR1 |= _BV( _MB_OCF1A ) ;
 }
 
-SIGNAL( SIG_OUTPUT_COMPARE1A )
+ISR( _MB_TIMER_COMPA_vect )
 {
     ( void )pxMBPortCBTimerExpired(  );
 }
