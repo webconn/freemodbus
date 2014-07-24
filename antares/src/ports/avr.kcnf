@@ -2,9 +2,9 @@ config LIB_FREEMODBUS_PORT_RTS_ENABLE
         bool "Enable RTS signal"
         default y
 
-config LIB_FREEMODBUS_PORT_RTS_PORT
-        string "RTS port"
-        default PORTB
+config LIB_FREEMODBUS_PORT_RTS_PORT_Q
+        string "RTS port letter"
+        default B
         depends on LIB_FREEMODBUS_PORT_RTS_ENABLE
 
 config LIB_FREEMODBUS_PORT_RTS_PIN
@@ -14,3 +14,4 @@ config LIB_FREEMODBUS_PORT_RTS_PIN
 
 config LIB_FREEMODBUS_PORT_OPTCRC
         bool "Write CRC tables into Flash (reduce RAM usage)"
+        select LIB_FREEMODBUS_RTU_CUSTOM_CRC

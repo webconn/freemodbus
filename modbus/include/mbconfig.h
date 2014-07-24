@@ -34,6 +34,11 @@
 #ifdef __cplusplus
 PR_BEGIN_EXTERN_C
 #endif
+/* ----------------------- Autoconfigure in Antares -------------------------*/
+#ifdef CONFIG_LIB_FREEMODBUS
+#include "mbautoconfig.h"
+#else
+
 /* ----------------------- Defines ------------------------------------------*/
 /*! \defgroup modbus_cfg Modbus Configuration
  *
@@ -124,6 +129,8 @@ PR_BEGIN_EXTERN_C
 
 /*! \brief If the <em>Read/Write Multiple Registers</em> function should be enabled. */
 #define MB_FUNC_READWRITE_HOLDING_ENABLED       (  1 )
+
+#endif /* from autoconfig */
 
 /*! @} */
 #ifdef __cplusplus

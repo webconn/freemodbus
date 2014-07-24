@@ -1,0 +1,3 @@
+if ARCH_AVR
+        source antares/src/lib/contrib/freemodbus/ports/avr.kcnf
+endif

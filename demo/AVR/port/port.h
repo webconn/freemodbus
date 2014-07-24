@@ -219,11 +219,31 @@ typedef long    LONG;
 #endif
 
 /* ----------------------- RS485 specifics ----------------------------------*/
+/* ----- From Antares environment ------------ */
+#ifdef CONFIG_LIB_FREEMODBUS 
+#undef RTS_ENABLE
+#ifdef CONFIG_LIB_FREEMODBUS_PORT_RTS_ENABLE
+#define RTS_ENABLE
+#endif
+#endif
+
 #ifdef  RTS_ENABLE
 
+/* ---------- From Antares environment ---------- */
+#ifdef CONFIG_LIB_FREEMODBUS
+
+#define RTS_PIN (CONFIG_LIB_FREEMODBUS_PORT_RTS_PIN)
+#define RTS_PORT PORT##CONFIG_LIB_FREEMODBUS_PORT_RTS_PORT
+#define RTS_DDR DDR##CONFIG_LIB_FREEMODBUS_PORT_RTS_PORT
+
+#else
+
+/* Old-style configuration */
 #define RTS_PIN         PB0
 #define RTS_DDR         DDRB
 #define RTS_PORT        PORTB
+
+#endif
 
 #define _MB_RTS_INIT()      \
     do { \
