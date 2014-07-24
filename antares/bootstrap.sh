@@ -3,6 +3,7 @@
 # Configuration of bootstrap
 product_name="freemodbus library"
 product_dir="freemodbus"
+product_kcnf_name="LIB_FREEMODBUS"
 has_kcnf=true
 
 # Source
@@ -22,6 +23,9 @@ if [[ -n $ANTARES_INSTALL_DIR ]]; then
 
         ln -sf `pwd`/src/ $ANTARES_INSTALL_DIR/src/lib/contrib/$product_dir
         ln -sf `pwd`/include/ $ANTARES_INSTALL_DIR/include/lib/$product_dir
+
+        echo "Add to Makefile..."
+        echo "subdirs-\$(CONFIG_$product_kcnf_name)+=$product_dir" >> $ANTARES_INSTALL_DIR/src/lib/contrib/Makefile
 
         if $has_kcnf; then
                 echo "Add kcnf info..."
