@@ -58,11 +58,21 @@
 #endif
 
 /* Character timeout value for Modbus ASCII */
+#ifdef CONFIG_LIB_FREEMODBUS_ASCII_TIMEOUT
 #define MB_ASCII_TIMEOUT_SEC (CONFIG_LIB_FREEMODBUS_ASCII_TIMEOUT)
+#else
+#define MB_ASCII_TIMEOUT_SEC (1)
+#endif
 
 /* Timeout to wait in ASCII prior to enabling transmitter */
+#ifdef CONFIG_LIB_FREEMODBUS_ASCII_TIMEOUT_WAIT
 #ifndef MB_ASCII_TIMEOUT_WAIT_BEFORE_SEND_MS
 #define MB_ASCII_TIMEOUT_WAIT_BEFORE_SEND_MS (CONFIG_LIB_FREEMODBUS_ASCII_TIMEOUT_WAIT)
+#endif
+#else
+#ifndef MB_ASCII_TIMEOUT_WAIT_BEFORE_SEND_MS
+#define MB_ASCII_TIMEOUT_WAIT_BEFORE_SEND_MS (0)
+#endif
 #endif
 
 /* Maximum number of Modbus functions */

@@ -109,7 +109,7 @@ if LIB_FREEMODBUS
                         select LIB_FREEMODBUS_USE_FUNCS
                         select LIB_FREEMODBUS_FUNC_USE_DISCRETE
 
-                config LIB_FREEMODBUS_FUNC_READWRITE_HOLDING"
+                config LIB_FREEMODBUS_FUNC_READWRITE_HOLDING
                         bool "Read/Write Multiple Registers (23)"
                         select LIB_FREEMODBUS_USE_FUNCS
                         select LIB_FREEMODBUS_FUNC_USE_HOLDING
