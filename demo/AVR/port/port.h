@@ -232,9 +232,13 @@ typedef long    LONG;
 /* ---------- From Antares environment ---------- */
 #ifdef CONFIG_LIB_FREEMODBUS
 
+#define _port_def(a) __port_def(a)
+#define _ddr_def(a) __ddr_def(a)
+#define __port_def(a) PORT ## a
+#define __ddr_def(a) DDR ## a
 #define RTS_PIN (CONFIG_LIB_FREEMODBUS_PORT_RTS_PIN)
-#define RTS_PORT PORT##CONFIG_LIB_FREEMODBUS_PORT_RTS_PORT
-#define RTS_DDR DDR##CONFIG_LIB_FREEMODBUS_PORT_RTS_PORT
+#define RTS_PORT _port_def(CONFIG_LIB_FREEMODBUS_PORT_RTS_PORT)
+#define RTS_DDR _ddr_def(CONFIG_LIB_FREEMODBUS_PORT_RTS_PORT)
 
 #else
 
